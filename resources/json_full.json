@@ -1,0 +1,506 @@
+{
+    "templates": {
+        "event_checkmark_default": {
+            "type": "container",
+            "orientation": "horizontal",
+            "content_alignment_vertical": "center",
+            "margins": {
+                "top": 5,
+                "bottom": 5
+            },
+            "variables": [
+                {
+                    "name": "is_checked",
+                    "type": "boolean",
+                    "value": false
+                }
+            ],
+            "actions": [
+                {
+                    "is_enabled": "@{!is_locked}",
+                    "log_id": "set_checkbox",
+                    "$url": "action_url"
+                }
+            ],
+            "items": [
+                {
+                    "type": "container",
+                    "width": {
+                        "type": "fixed",
+                        "value": 20
+                    },
+                    "height": {
+                        "type": "fixed",
+                        "value": 20
+                    },
+                    "border": {
+                        "stroke": {
+                            "style": {
+                                "type": "solid"
+                            },
+                            "color": "#000",
+                            "width": 1
+                        }
+                    },
+                    "margins": {
+                        "end": 7
+                    },
+                    "content_alignment_vertical": "center",
+                    "items": [
+                        {
+                            "type": "text",
+                            "text_alignment_horizontal": "center",
+                            "text": "X",
+                            "$visibility": "is_checked"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "$text": "title",
+                    "font_size": 14
+                }
+            ]
+        }
+    },
+    "card": {
+        "variables": [
+            {
+                "name": "is_locked",
+                "type": "boolean",
+                "value": false
+            },
+            {
+                "name": "name_text",
+                "type": "string",
+                "value": ""
+            },
+            {
+                "name": "tg_text",
+                "type": "string",
+                "value": ""
+            },
+            {
+                "name": "is_locked_state",
+                "type": "string",
+                "value": "unlocked"
+            },
+            {
+                "name": "coderun_check",
+                "type": "boolean",
+                "value": false
+            },
+            {
+                "name": "divkit_check",
+                "type": "boolean",
+                "value": false
+            },
+            {
+                "name": "workshop_check",
+                "type": "boolean",
+                "value": false
+            },
+            {
+                "name": "quiz_check",
+                "type": "boolean",
+                "value": false
+            },
+            {
+                "name": "hookah_check",
+                "type": "boolean",
+                "value": false
+            },
+            {
+                "name": "custom_checkmark_input_text",
+                "type": "string",
+                "value": ""
+            },
+            {
+                "name": "custom_checkmark_check",
+                "type": "boolean",
+                "value": false
+            }
+        ],
+        "variable_triggers": [
+            {
+                "mode": "on_variable",
+                "condition": "@{is_locked || !is_locked}",
+                "actions": [
+                    {
+                        "log_id": "change_lock_state",
+                        "url": "div-action://set_variable?name=is_locked_state&value=@{is_locked ? 'locked' : 'unlocked'}"
+                    }
+                ]
+            }
+        ],
+        "log_id": "div2_sample_card",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "container",
+                    "background": [
+                        {
+                            "type": "solid",
+                            "color": "#20ff017e"
+                        }
+                    ],
+                    "margins": {
+                        "top": 5,
+                        "start": 5,
+                        "end": 5,
+                        "bottom": 5
+                    },
+                    "paddings": {
+                        "top": 10,
+                        "start": 20,
+                        "end": 5,
+                        "bottom": 5
+                    },
+                    "border": {
+                        "corner_radius": 10,
+                        "has_shadow": true,
+                        "shadow": {
+                            "offset": {
+                                "x": {
+                                    "value": 5
+                                },
+                                "y": {
+                                    "value": 5
+                                }
+                            },
+                            "blur": 5,
+                            "color": "#ffb6c1"
+                        },
+                        "stroke": {
+                            "style": {
+                                "type": "solid"
+                            },
+                            "color": "#000"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "container",
+                            "orientation": "horizontal",
+                            "items": [
+                                {
+                                    "type": "container",
+                                    "orientation": "vertical",
+                                    "alignment_vertical": "center",
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "text": "Удостоверение Рантаймера",
+                                            "font_size": 24,
+                                            "margins": {
+                                                "bottom": 20
+                                            }
+                                        },
+                                        {
+                                            "type": "container",
+                                            "orientation": "horizontal",
+                                            "alignment_horizontal": "start",
+                                            "margins": {
+                                                "bottom": 1
+                                            },
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "Имя: \t",
+                                                    "width": {
+                                                        "type": "wrap_content"
+                                                    }
+                                                },
+                                                {
+                                                    "type": "state",
+                                                    "id": "cutom_checkmark",
+                                                    "state_id_variable": "is_locked_state",
+                                                    "width": {
+                                                        "type": "wrap_content"
+                                                    },
+                                                    "states": [
+                                                        {
+                                                            "state_id": "locked",
+                                                            "div": {
+                                                                "type": "text",
+                                                                "text": "@{name_text}",
+                                                                "font_size": 14
+                                                            }
+                                                        },
+                                                        {
+                                                            "state_id": "unlocked",
+                                                            "div": {
+                                                                "type": "input",
+                                                                "width": {
+                                                                    "type": "fixed",
+                                                                    "value": 160
+                                                                },
+                                                                "paddings": {
+                                                                    "start": 5,
+                                                                    "end": 5
+                                                                },
+                                                                "text_variable": "name_text",
+                                                                "border": {
+                                                                    "stroke": {
+                                                                        "style": {
+                                                                            "type": "solid"
+                                                                        },
+                                                                        "color": "#000"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "container",
+                                            "orientation": "horizontal",
+                                            "alignment_horizontal": "start",
+                                            "margins": {
+                                                "bottom": 5
+                                            },
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "text": "tg: \t\t",
+                                                    "width": {
+                                                        "type": "wrap_content"
+                                                    }
+                                                },
+                                                {
+                                                    "type": "state",
+                                                    "id": "cutom_checkmark",
+                                                    "state_id_variable": "is_locked_state",
+                                                    "width": {
+                                                        "type": "wrap_content"
+                                                    },
+                                                    "states": [
+                                                        {
+                                                            "state_id": "locked",
+                                                            "div": {
+                                                                "type": "text",
+                                                                "text": "@{tg_text}",
+                                                                "font_size": 14
+                                                            }
+                                                        },
+                                                        {
+                                                            "state_id": "unlocked",
+                                                            "div": {
+                                                                "type": "input",
+                                                                "width": {
+                                                                    "type": "fixed",
+                                                                    "value": 160
+                                                                },
+                                                                "paddings": {
+                                                                    "start": 5,
+                                                                    "end": 5
+                                                                },
+                                                                "text_variable": "tg_text",
+                                                                "border": {
+                                                                    "stroke": {
+                                                                        "style": {
+                                                                            "type": "solid"
+                                                                        },
+                                                                        "color": "#000"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "image",
+                                    "image_url": "https://avatars.mds.yandex.net/get-shedevrum/14817549/video_preview_0eb81f8eb7f111ef866a3aea56f69d1e_1/orig",
+                                    "width": {
+                                        "type": "fixed",
+                                        "value": 120
+                                    },
+                                    "border": {
+                                        "corner_radius": 10
+                                    },
+                                    "aspect": {
+                                        "ratio": 1.0
+                                    },
+                                    "margins": {
+                                        "end": 10
+                                    }
+                                }
+                            ],
+                            "margins": {
+                                "bottom": 10
+                            }
+                        },
+                        {
+                            "type": "separator",
+                            "width": {
+                                "type": "match_parent"
+                            },
+                            "margins": {
+                                "top": 5,
+                                "bottom": 5
+                            }
+                        },
+                        {
+                            "type": "container",
+                            "items": [
+                                {
+                                    "type": "event_checkmark_default",
+                                    "title": "Покодил на CodeRun",
+                                    "action_url": "div-action://set_variable?name=coderun_check&value=@{!coderun_check}",
+                                    "is_checked": "@{coderun_check ? 'visible' : 'gone'}"
+                                },
+                                {
+                                    "type": "event_checkmark_default",
+                                    "title": "Написал вёрстку на скорость",
+                                    "action_url": "div-action://set_variable?name=divkit_check&value=@{!divkit_check}",
+                                    "is_checked": "@{divkit_check ? 'visible' : 'gone'}"
+                                },
+                                {
+                                    "type": "event_checkmark_default",
+                                    "title": "Сходил на воркшоп",
+                                    "action_url": "div-action://set_variable?name=workshop_check&value=@{!workshop_check}",
+                                    "is_checked": "@{workshop_check ? 'visible' : 'gone'}"
+                                },
+                                {
+                                    "type": "event_checkmark_default",
+                                    "title": "Угадал все ответы на квизе",
+                                    "action_url": "div-action://set_variable?name=quiz_check&value=@{!quiz_check}",
+                                    "is_checked": "@{quiz_check ? 'visible' : 'gone'}"
+                                },
+                                {
+                                    "type": "event_checkmark_default",
+                                    "title": "Посмотрел на кальян",
+                                    "action_url": "div-action://set_variable?name=hookah_check&value=@{!hookah_check}",
+                                    "is_checked": "@{hookah_check ? 'visible' : 'gone'}"
+                                },
+                                {
+                                    "type": "container",
+                                    "orientation": "horizontal",
+                                    "content_alignment_vertical": "center",
+                                    "margins": {
+                                        "top": 5,
+                                        "bottom": 5
+                                    },
+                                    "variables": [
+                                        {
+                                            "name": "is_checked",
+                                            "type": "boolean",
+                                            "value": false
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "container",
+                                            "actions": [
+                                                {
+                                                    "is_enabled": "@{!is_locked}",
+                                                    "log_id": "set_checkbox",
+                                                    "url": "div-action://set_variable?name=custom_checkmark_check&value=@{!custom_checkmark_check}"
+                                                }
+                                            ],
+                                            "width": {
+                                                "type": "fixed",
+                                                "value": 20
+                                            },
+                                            "height": {
+                                                "type": "fixed",
+                                                "value": 20
+                                            },
+                                            "border": {
+                                                "stroke": {
+                                                    "style": {
+                                                        "type": "solid"
+                                                    },
+                                                    "color": "#000",
+                                                    "width": 1
+                                                }
+                                            },
+                                            "margins": {
+                                                "end": 7
+                                            },
+                                            "content_alignment_vertical": "center",
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "text_alignment_horizontal": "center",
+                                                    "text": "X",
+                                                    "visibility": "@{custom_checkmark_check ? 'visible' : 'gone'}"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "state",
+                                            "id": "cutom_checkmark",
+                                            "state_id_variable": "is_locked_state",
+                                            "states": [
+                                                {
+                                                    "state_id": "locked",
+                                                    "div": {
+                                                        "type": "text",
+                                                        "text": "@{custom_checkmark_input_text}",
+                                                        "font_size": 14
+                                                    }
+                                                },
+                                                {
+                                                    "state_id": "unlocked",
+                                                    "div": {
+                                                        "type": "input",
+                                                        "width": {
+                                                            "type": "fixed",
+                                                            "value": 200
+                                                        },
+                                                        "paddings": {
+                                                            "start": 5,
+                                                            "end": 5
+                                                        },
+                                                        "text_variable": "custom_checkmark_input_text",
+                                                        "border": {
+                                                            "stroke": {
+                                                                "style": {
+                                                                    "type": "solid"
+                                                                },
+                                                                "color": "#000"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "container",
+                            "orientation": "horizontal",
+                            "alignment_horizontal": "end",
+                            "width": {
+                                "type": "wrap_content"
+                            },
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "text": "@{is_locked ? '🔒' : '🔐'}",
+                                    "font_size": 16,
+                                    "actions": [
+                                        {
+                                            "log_id": "set_lock",
+                                            "url": "div-action://set_variable?name=is_locked&value=@{!is_locked}"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

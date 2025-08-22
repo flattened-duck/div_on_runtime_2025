@@ -1,0 +1,271 @@
+{
+  "card": {
+    "log_id": "div2_sample_card",
+    "states": [
+      {
+        "div": {
+          "items": [
+            {
+              "action_url": "div-action://set_variable?name=coderun_check&value=@{!coderun_check}",
+              "is_checked": "@{coderun_check ? 'visible' : 'gone'}",
+              "title": "Покодил на CodeRun",
+              "type": "templates.EventCheckmarkDefault"
+            },
+            {
+              "action_url": "div-action://set_variable?name=divkit_check&value=@{!divkit_check}",
+              "is_checked": "@{divkit_check ? 'visible' : 'gone'}",
+              "title": "Написал вёрстку на скорость",
+              "type": "templates.EventCheckmarkDefault"
+            },
+            {
+              "action_url": "div-action://set_variable?name=workshop_check&value=@{!workshop_check}",
+              "is_checked": "@{workshop_check ? 'visible' : 'gone'}",
+              "title": "Сходил на воркшоп",
+              "type": "templates.EventCheckmarkDefault"
+            },
+            {
+              "action_url": "div-action://set_variable?name=quiz_check&value=@{!quiz_check}",
+              "is_checked": "@{quiz_check ? 'visible' : 'gone'}",
+              "title": "Угадал все ответы на квизе",
+              "type": "templates.EventCheckmarkDefault"
+            },
+            {
+              "action_url": "div-action://set_variable?name=hookah_check&value=@{!hookah_check}",
+              "is_checked": "@{hookah_check ? 'visible' : 'gone'}",
+              "title": "Посмотрел на кальян",
+              "type": "templates.EventCheckmarkDefault"
+            },
+            {
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "actions": [
+                    {
+                      "is_enabled": "@{!is_locked}",
+                      "log_id": "set_checkbox",
+                      "url": "div-action://set_variable?name=custom_checkmark_check&value=@{!custom_checkmark_check}"
+                    }
+                  ],
+                  "border": {
+                    "stroke": {
+                      "color": "#000",
+                      "style": {
+                        "type": "solid"
+                      },
+                      "width": 1.0
+                    }
+                  },
+                  "content_alignment_vertical": "center",
+                  "height": {
+                    "type": "fixed",
+                    "value": 20
+                  },
+                  "items": [
+                    {
+                      "font_size": 14,
+                      "text": "X",
+                      "text_alignment_horizontal": "center",
+                      "text_color": "#000000",
+                      "type": "text",
+                      "visibility": "@{custom_checkmark_check ? 'visible' : 'gone'}"
+                    }
+                  ],
+                  "margins": {
+                    "end": 7
+                  },
+                  "orientation": "vertical",
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 20
+                  }
+                },
+                {
+                  "div_id": "custom_checkmark",
+                  "state_id_variable": "is_locked_state",
+                  "states": [
+                    {
+                      "div": {
+                        "font_size": 14,
+                        "text": "@{custom_checkmark_input_text}",
+                        "text_color": "#000000",
+                        "type": "text"
+                      },
+                      "state_id": "locked"
+                    },
+                    {
+                      "div": {
+                        "border": {
+                          "stroke": {
+                            "color": "#000",
+                            "style": {
+                              "type": "solid"
+                            },
+                            "width": 1.0
+                          }
+                        },
+                        "hint_text": "",
+                        "keyboard_type": "single_line_text",
+                        "text_variable": "custom_checkmark_input_text",
+                        "type": "input",
+                        "width": {
+                          "type": "fixed",
+                          "value": 200
+                        }
+                      },
+                      "state_id": "unlocked"
+                    }
+                  ],
+                  "type": "state"
+                }
+              ],
+              "margins": {
+                "bottom": 5,
+                "top": 5
+              },
+              "orientation": "horizontal",
+              "type": "container",
+              "variables": [
+                {
+                  "name": "is_checked",
+                  "type": "boolean",
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "orientation": "vertical",
+          "type": "container"
+        },
+        "state_id": 0
+      }
+    ],
+    "variable_triggers": [
+      {
+        "actions": [
+          {
+            "log_id": "change_lock_state",
+            "url": "div-action://set_variable?name=is_locked_state&value=@{is_locked ? 'locked' : 'unlocked'}"
+          }
+        ],
+        "condition": "@{is_locked || !is_locked}",
+        "mode": "on_variable"
+      }
+    ],
+    "variables": [
+      {
+        "name": "is_locked",
+        "type": "boolean",
+        "value": false
+      },
+      {
+        "name": "is_locked_state",
+        "type": "string",
+        "value": "unlocked"
+      },
+      {
+        "name": "coderun_check",
+        "type": "boolean",
+        "value": false
+      },
+      {
+        "name": "divkit_check",
+        "type": "boolean",
+        "value": false
+      },
+      {
+        "name": "workshop_check",
+        "type": "boolean",
+        "value": false
+      },
+      {
+        "name": "quiz_check",
+        "type": "boolean",
+        "value": false
+      },
+      {
+        "name": "hookah_check",
+        "type": "boolean",
+        "value": false
+      },
+      {
+        "name": "custom_checkmark_input_text",
+        "type": "string",
+        "value": ""
+      },
+      {
+        "name": "custom_checkmark_check",
+        "type": "boolean",
+        "value": false
+      }
+    ]
+  },
+  "templates": {
+    "templates.EventCheckmarkDefault": {
+      "actions": [
+        {
+          "$url": "action_url",
+          "is_enabled": "@{!is_locked}",
+          "log_id": "set_checkbox"
+        }
+      ],
+      "content_alignment_vertical": "center",
+      "items": [
+        {
+          "border": {
+            "stroke": {
+              "color": "#000",
+              "style": {
+                "type": "solid"
+              },
+              "width": 1.0
+            }
+          },
+          "content_alignment_vertical": "center",
+          "height": {
+            "type": "fixed",
+            "value": 20
+          },
+          "items": [
+            {
+              "$visibility": "is_checked",
+              "font_size": 14,
+              "text": "X",
+              "text_alignment_horizontal": "center",
+              "text_color": "#000000",
+              "type": "text"
+            }
+          ],
+          "margins": {
+            "end": 7
+          },
+          "orientation": "vertical",
+          "type": "container",
+          "width": {
+            "type": "fixed",
+            "value": 20
+          }
+        },
+        {
+          "$text": "title",
+          "font_size": 14,
+          "text_color": "#000000",
+          "type": "text"
+        }
+      ],
+      "margins": {
+        "bottom": 5,
+        "top": 5
+      },
+      "orientation": "horizontal",
+      "type": "container",
+      "variables": [
+        {
+          "name": "is_checked",
+          "type": "boolean",
+          "value": false
+        }
+      ]
+    }
+  }
+}
