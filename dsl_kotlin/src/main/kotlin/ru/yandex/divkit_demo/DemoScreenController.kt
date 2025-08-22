@@ -24,7 +24,7 @@ import ru.yandex.divkit_demo.presentation.CheckmarkCardViewModel
 import ru.yandex.divkit_demo.presentation.CheckmarkItemData
 
 @RestController
-@RequestMapping("/demo") // Listening at localhost:8080/demo
+@RequestMapping("/divruntime") // Listening at localhost:8080/divruntime
 class DemoScreenController {
 
     @GetMapping
