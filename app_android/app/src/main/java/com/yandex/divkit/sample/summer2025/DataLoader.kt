@@ -4,6 +4,7 @@ import com.yandex.div2.DivData
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okio.IOException
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.ConnectException
@@ -29,6 +30,9 @@ internal object DataLoader {
             client.newCall(request).execute()
         } catch (e: ConnectException) {
             println("Failed to get response: ${e.message}")
+            return null
+        } catch (e: IOException) {
+            println("Network error: ${e.message}")
             return null
         }
 
