@@ -5,7 +5,7 @@
 ## 📁 Структура проекта
 
 ```
-python/
+dsl_python/
 ├── server.py          # Flask веб-сервер и endpoints
 ├── config.py          # Конфигурация сервера и HTML шаблоны
 ├── divkit_layouts/    # 📦 DSL модуль для создания DivKit компонентов
@@ -22,7 +22,8 @@ python/
 ### Установка зависимостей
 
 ```bash
-# Активируем виртуальное окружение
+# Создаём и активируем виртуальное окружение
+python3 -m venv env
 source env/bin/activate
 
 # Устанавливаем зависимости
