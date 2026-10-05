@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+
+# Gradle / Kotlin / Android
+.gradle/
+.kotlin/
+build/
+local.properties
+
+# Python
+env/
+venv/
+.venv/
+__pycache__/
+*.pyc
